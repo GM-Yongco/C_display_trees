@@ -124,7 +124,16 @@ int get_tree_max_elemets(int depth){
 // FUNCTIONS CORE 3
 // =======================================================================
 
-
+int num_height_coords(int elem_num){
+	int power = 0;
+	int compare = 2;
+	while(compare<=elem_num){
+		power++;
+		compare = compare<<power;
+	}
+	printf("%d, %d, ", compare, power);
+	return(power*2);
+}
 
 void display_ascii_tree(b_tree_p root){
 	int depth = get_depth(root);

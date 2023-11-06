@@ -51,10 +51,14 @@ int main(){
 
 	int i;
 	for(i = 1; i<5; i++){
-		// printf("%d\n", get_tree_display_base(i));
-		// printf("%d\n", get_tree_display_height(i));
+		printf("%d\n", get_tree_display_base(i));
+		printf("%d\n", get_tree_display_height(i));
 		printf("%d\n", get_tree_max_elemets(i));
 		printf("\n\n");
+	}
+
+	for(i = 1; i<16; i++){
+		printf("%d\n", num_height_coords(i));
 	}
 
 	section("PRINTING");
