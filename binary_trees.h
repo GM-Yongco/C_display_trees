@@ -243,11 +243,6 @@ void display_ascii_tree(b_tree_p root){
 			(i%2 == 1)?(THE_CHAR = '/'):(THE_CHAR = '\\');
 			diagram[coord_y][coord_x] = THE_CHAR;
 		}
-
-		// int j;
-		// for(j = 0; j<height; j++){
-		// 	printf("%s\n", diagram[j]);
-		// }
 	}
 
 	// DISPLAYING THE STRINGS =======================================
