@@ -25,18 +25,24 @@ int main(){
 	init(&(root->rite), al[2]);
 	
 	init(&(root->left->left), al[3]);    
-//	init(&(root->left->rite), al[4]);
+	// init(&(root->left->rite), al[4]);
 	init(&(root->rite->left), al[5]);
-	 init(&(root->rite->rite), al[6]);
+	init(&(root->rite->rite), al[6]);
 
-	 init(&(root->left->left->left), al[7]);
-	// init(&(root->left->left->rite), al[8]);
-	//	init(&(root->left->rite->left), al[9]);
-	//	init(&(root->left->rite->rite), al[10]);
-	// init(&(root->rite->left->left), al[11]);
-	// init(&(root->rite->left->rite), al[12]);
-	// init(&(root->rite->rite->left), al[13]);
-	// init(&(root->rite->rite->rite), al[14]);
+	init(&(root->left->left->left), al[7]);
+	init(&(root->left->left->rite), al[8]);
+	// init(&(root->left->rite->left), al[9]);
+	// init(&(root->left->rite->rite), al[10]);
+	init(&(root->rite->left->left), al[11]);
+	init(&(root->rite->left->rite), al[12]);
+	init(&(root->rite->rite->left), al[13]);
+	init(&(root->rite->rite->rite), al[14]);
+
+	
+	init(&(root->left->left->left->left), al[15]);
+	init(&(root->left->left->left->rite), al[16]);
+	init(&(root->left->left->rite->left), al[17]);
+	init(&(root->left->left->rite->rite), al[18]);
 	
 	// DISPLAY =============================================================
 
@@ -61,12 +67,6 @@ int main(){
 
 	for(i = 0; i<15; i++){
 		printf("[%d] %d %d %d\n", i, num_coords_height(i), num_coords_width(i, 4), mod_two_power(i));
-	}
-
-	
-	section("TEST WIDTH COORDS");
-
-	for(i = 0; i<17; i++){
 	}
 
 	section("PRINTING HEAP");

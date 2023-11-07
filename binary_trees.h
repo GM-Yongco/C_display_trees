@@ -133,11 +133,11 @@ b_tree_p* store_in_heap(b_tree_p root){
 	int i;
 	for(i = 0; (i<count) && (((i*2) + 1) < count) ; i++){
 		if(heap[i] !=NULL){
-			heap[i*2 + 1] = heap[i]->left;
-			heap[i*2 + 2] = heap[i]->rite;
+			heap[(i*2) + 1] = heap[i]->left;
+			heap[(i*2) + 2] = heap[i]->rite;
 		}else{
-			heap[i*2 + 1] = NULL;
-			heap[i*2 + 2] = NULL;
+			heap[(i*2) + 1] = NULL;
+			heap[(i*2) + 2] = NULL;
 		}
 	}
 	
@@ -196,6 +196,10 @@ int num_coords_width(int elem_num, int depth){
 	return ret_val;
 }
 
+// =======================================================================
+// FUNCTIONS CORE 5
+// =======================================================================
+
 void display_ascii_tree(b_tree_p root){
 	int depth = get_depth(root);
 	int width = get_tree_display_base(depth);
@@ -208,7 +212,7 @@ void display_ascii_tree(b_tree_p root){
 	//background
 	int i;
 	for(i = 0; i<height; i++){
-		memset(diagram[i], '-', sizeof(char)* width);
+		memset(diagram[i], ' ', sizeof(char)* width);
 		diagram[i][width] = '\0';
 	}
 
@@ -217,12 +221,33 @@ void display_ascii_tree(b_tree_p root){
 
 	//putting in values
 	int count = get_tree_max_elemets(depth);
+	int coord_y;
+	int coord_x;
+	char THE_CHAR;
 	for(i = 0; (i<count); i++){
-		char THE_CHAR = ' ';
+		THE_CHAR = ' ';	//default if null
+		
 		if(heap[i] != NULL){
 			THE_CHAR = heap[i]->data;
 		}
-		diagram[num_coords_height(i)][num_coords_width(i, depth)] = THE_CHAR;
+		coord_y = num_coords_height(i);
+		coord_x = num_coords_width(i, depth);
+		diagram[coord_y][coord_x] = THE_CHAR;
+
+		//putting in the branches thingy
+		if(i > 0 && heap[i] != NULL){
+			coord_y -= 1 ;
+			coord_x = (num_coords_width((i-1)/2, depth) + coord_x)/2;
+			
+			THE_CHAR = '/';
+			(i%2 == 1)?(THE_CHAR = '/'):(THE_CHAR = '\\');
+			diagram[coord_y][coord_x] = THE_CHAR;
+		}
+
+		// int j;
+		// for(j = 0; j<height; j++){
+		// 	printf("%s\n", diagram[j]);
+		// }
 	}
 
 	// DISPLAYING THE STRINGS =======================================
