@@ -15,7 +15,7 @@
 typedef enum boolean{FALSE, TRUE}BOOLEAN;
 
 void section(char* message){
-	int count = 43;			//additional 3 for the (\n)s and the \0
+	int count = 43;			//addintional 3 for the (\n)s and the \0
 	char new_string[count];
 	
 	int i;
@@ -124,15 +124,76 @@ int get_tree_max_elemets(int depth){
 // FUNCTIONS CORE 3
 // =======================================================================
 
-int num_height_coords(int elem_num){
-	int power = 0;
-	int compare = 2;
-	while(compare<=elem_num){
-		power++;
-		compare = compare<<power;
+
+b_tree_p* store_in_heap(b_tree_p root){
+	int count = get_tree_max_elemets(get_depth(root));
+	b_tree_p* heap = (b_tree_p*)malloc(sizeof(b_tree_p) * count);
+	
+	heap[0] = root;
+	int i;
+	for(i = 0; (i<count) && (((i*2) + 1) < count) ; i++){
+		if(heap[i] !=NULL){
+			heap[i*2 + 1] = heap[i]->left;
+			heap[i*2 + 2] = heap[i]->rite;
+		}else{
+			heap[i*2 + 1] = NULL;
+			heap[i*2 + 2] = NULL;
+		}
 	}
-	printf("%d, %d, ", compare, power);
-	return(power*2);
+	
+	return heap;
+}
+
+void print_heap(b_tree_p* heap, int count){
+	int i;
+	for(i = 0; (i<count); i++){
+		if(heap[i] == NULL){
+			printf("[%d] = NULL\n", i);	
+		}else{
+			printf("[%d] = %c\n", i, heap[i]->data);	
+		}
+	}
+}
+
+// =======================================================================
+// FUNCTIONS CORE 4
+// =======================================================================
+
+int power_minus_one(int elem_num){
+	elem_num = elem_num +1;
+	
+	int power = 1;
+	int compare = 2;
+	while( compare <= elem_num){
+		power++;
+		compare = 1 << power;
+	}
+	return(power-1);
+}
+
+int mod_two_power(int elem_num){
+	elem_num = elem_num +1;
+	
+	int power = 1;
+	int compare = 2;
+	while( compare <= elem_num){
+		power++;
+		compare = 1 << power;
+	}
+	return elem_num - (compare>>1);
+}
+
+int num_coords_height(int elem_num){
+	return(power_minus_one(elem_num)*2);
+}
+
+int num_coords_width(int elem_num, int depth){
+	int ret_val = get_tree_display_base(depth - power_minus_one(elem_num))/2;
+	int additional = ((get_tree_display_base(depth - power_minus_one(elem_num) + 1)/2) + 2) * mod_two_power(elem_num);
+	
+	ret_val += additional;
+
+	return ret_val;
 }
 
 void display_ascii_tree(b_tree_p root){
@@ -151,8 +212,18 @@ void display_ascii_tree(b_tree_p root){
 		diagram[i][width] = '\0';
 	}
 
+	//store conveniently
+	b_tree_p* heap = store_in_heap(root);
+
 	//putting in values
-	diagram[0][(width/2)] = root->data;
+	int count = get_tree_max_elemets(depth);
+	for(i = 0; (i<count); i++){
+		char THE_CHAR = ' ';
+		if(heap[i] != NULL){
+			THE_CHAR = heap[i]->data;
+		}
+		diagram[num_coords_height(i)][num_coords_width(i, depth)] = THE_CHAR;
+	}
 
 	// DISPLAYING THE STRINGS =======================================
 	for(i = 0; i<height; i++){
