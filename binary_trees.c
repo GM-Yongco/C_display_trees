@@ -43,6 +43,9 @@ int main(){
 	init(&(root->left->left->left->rite), al[16]);
 	init(&(root->left->left->rite->left), al[17]);
 	init(&(root->left->left->rite->rite), al[18]);
+
+	
+	init(&(root->left->left->left->left->left), al[19]);
 	
 	// DISPLAY =============================================================
 
